@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,9 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sos/features/auth/viewmodels/login_viewmodel.dart';
-import 'package:sos/firebase_options.dart';
+// import 'package:sos/firebase_options.dart';
 import 'package:sos/shared/navigation/app_router.dart';
-import 'package:sos/shared/services/push_notification_service.dart';
+// import 'package:sos/shared/services/push_notification_service.dart';
 import 'package:sos/shared/utils/log_util.dart';
 import 'package:sos/shared/viewmodels/location_viewmodel.dart';
 
@@ -22,13 +22,13 @@ Future<void> main() async {
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   final container = ProviderContainer();
-  final pushNotificationService = container.read(pushNotificationProvider);
-  await pushNotificationService.preAppInitialization();
+  // final pushNotificationService = container.read(pushNotificationProvider);
+  // await pushNotificationService.preAppInitialization();
 
   // PushNotificationService pushNotificationService = PushNotificationService();
   // await pushNotificationService.preAppInitialization();
@@ -63,8 +63,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.microtask(() {
-      final pushNotificationService = ref.read(pushNotificationProvider);
-      pushNotificationService.postAppInitialization(context, ref);
+      // final pushNotificationService = ref.read(pushNotificationProvider);
+      // pushNotificationService.postAppInitialization(context, ref);
     });
     ref.read(loginViewModelProvider.notifier).checkLoginStatus();
     final locationAsyncValue = ref.watch(locationViewModelProvider);
