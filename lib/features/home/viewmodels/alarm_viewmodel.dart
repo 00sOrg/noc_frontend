@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
+// import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sos/features/home/repositories/alarm_repository.dart';
 import 'package:sos/features/home/viewmodels/mapController_viewmodel.dart';
@@ -102,24 +102,24 @@ class AlarmViewModel extends StateNotifier<List<Alarm>> {
 
     // 알림 창을 닫은 뒤 해당 위치로 지도 이동
     Navigator.of(context).pop();
-    final NaverMapController? mapController = ref.read(mapControllerProvider);
-    if (mapController != null) {
-      // 알림에 따라 해당 위치로 지도 이동
-      await mapController.updateCamera(
-        NCameraUpdate.scrollAndZoomTo(
-          target: NLatLng(post.latitude!, post.longitude!),
-          zoom: 15,
-        ),
-      );
-    } else {
-      // NaverMapController가 null일 경우 에러 처리
-      ScaffoldMessenger.of(context).showSnackBar(
-        customSnackBar(
-          text: '지도 컨트롤러를 초기화할 수 없습니다.',
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
+    // final NaverMapController? mapController = ref.read(mapControllerProvider);
+    // if (mapController != null) {
+    //   // 알림에 따라 해당 위치로 지도 이동
+    //   await mapController.updateCamera(
+    //     NCameraUpdate.scrollAndZoomTo(
+    //       target: NLatLng(post.latitude!, post.longitude!),
+    //       zoom: 15,
+    //     ),
+    //   );
+    // } else {
+    //   // NaverMapController가 null일 경우 에러 처리
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     customSnackBar(
+    //       text: '지도 컨트롤러를 초기화할 수 없습니다.',
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    // }
   }
 
   Future<void> handleHelpRequest(
@@ -129,23 +129,23 @@ class AlarmViewModel extends StateNotifier<List<Alarm>> {
 
     // 친구 위치로 지도 이동
     Navigator.of(context).pop();
-    final NaverMapController? mapController = ref.read(mapControllerProvider);
-    if (mapController != null) {
-      await mapController.updateCamera(
-        NCameraUpdate.scrollAndZoomTo(
-          target: NLatLng(user.latitude!, user.longitude!),
-          zoom: 15,
-        ),
-      );
-    } else {
-      // NaverMapController가 null일 경우 에러 처리
-      ScaffoldMessenger.of(context).showSnackBar(
-        customSnackBar(
-          text: '지도 컨트롤러를 초기화할 수 없습니다.',
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
+    // final NaverMapController? mapController = ref.read(mapControllerProvider);
+    // if (mapController != null) {
+    //   await mapController.updateCamera(
+    //     NCameraUpdate.scrollAndZoomTo(
+    //       target: NLatLng(user.latitude!, user.longitude!),
+    //       zoom: 15,
+    //     ),
+    //   );
+    // } else {
+    //   // NaverMapController가 null일 경우 에러 처리
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     customSnackBar(
+    //       text: '지도 컨트롤러를 초기화할 수 없습니다.',
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    // }
   }
 
   Future<void> handleFavoriteNearbyEvent(
@@ -155,23 +155,23 @@ class AlarmViewModel extends StateNotifier<List<Alarm>> {
 
     // 친구 위치로 지도 이동
     Navigator.of(context).pop();
-    final NaverMapController? mapController = ref.read(mapControllerProvider);
-    if (mapController != null) {
-      await mapController.updateCamera(
-        NCameraUpdate.scrollAndZoomTo(
-          target: NLatLng(user.latitude!, user.longitude!),
-          zoom: 15,
-        ),
-      );
-    } else {
-      // NaverMapController가 null일 경우 에러 처리
-      ScaffoldMessenger.of(context).showSnackBar(
-        customSnackBar(
-          text: '지도 컨트롤러를 초기화할 수 없습니다.',
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
+    // final NaverMapController? mapController = ref.read(mapControllerProvider);
+    // if (mapController != null) {
+    //   await mapController.updateCamera(
+    //     NCameraUpdate.scrollAndZoomTo(
+    //       target: NLatLng(user.latitude!, user.longitude!),
+    //       zoom: 15,
+    //     ),
+    //   );
+    // } else {
+    //   // NaverMapController가 null일 경우 에러 처리
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     customSnackBar(
+    //       text: '지도 컨트롤러를 초기화할 수 없습니다.',
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    // }
   }
 }
 

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
+// import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -39,12 +39,12 @@ Future<void> _initialize() async {
     LogUtil.e("Could not load .env file: $e");
   }
 
-  await NaverMapSdk.instance.initialize(
-    clientId: dotenv.env['NAVER_MAP_API_ID']!,
-    onAuthFailed: (ex) {
-      LogUtil.e("네이버맵 인증오류 : $ex");
-    },
-  );
+  // await NaverMapSdk.instance.initialize(
+  //   clientId: dotenv.env['NAVER_MAP_API_ID']!,
+  //   onAuthFailed: (ex) {
+  //     LogUtil.e("네이버맵 인증오류 : $ex");
+  //   },
+  // );
 
   await Geolocator.checkPermission();
   await Geolocator.requestPermission();

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sos/shared/models/location.dart';
 import 'package:sos/shared/services/geolocator_service.dart';
@@ -20,6 +21,11 @@ class LocationViewModel extends StateNotifier<AsyncValue<Location>> {
 
       final adminAddress = _extractAdminAddress(jsonData); // "시, 구"
       final roadAddress = _extractRoadAddress(jsonData); // "시, 구, 동"
+
+      if (adminAddress.isEmpty || roadAddress.isEmpty) {
+        debugPrint('adminAddress: $adminAddress');
+        debugPrint('roadAddress: $roadAddress');
+      }
 
       if (adminAddress.isEmpty || roadAddress.isEmpty) {
         throw RangeError("주소를 찾을 수 없습니다");
