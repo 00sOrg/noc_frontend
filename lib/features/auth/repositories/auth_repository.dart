@@ -3,9 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:sos/features/auth/repositories/mock_auth_repository.dart';
 import 'package:sos/shared/models/user.dart';
 import 'package:sos/shared/providers/secure_storage_provider.dart';
-import 'package:sos/shared/services/push_notification_service.dart';
+// import 'package:sos/shared/services/push_notification_service.dart';
 import 'package:sos/shared/utils/http_helpers.dart';
 import 'package:sos/shared/utils/log_util.dart';
 
@@ -56,11 +57,11 @@ class AuthRepository {
     };
 
     try {
-      String? deviceToken = await PushNotificationService.getDeviceToken();
+      // String? deviceToken = await PushNotificationService.getDeviceToken();
 
-      if (deviceToken != null) {
-        body['token'] = deviceToken;
-      }
+      // if (deviceToken != null) {
+      //   body['token'] = deviceToken;
+      // }
 
       final response = await makePostRequest(url, body, 'loginUser');
       final token = jsonDecode(response.body)['data']['access_token'];
@@ -126,5 +127,11 @@ class AuthRepository {
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   final secureStorage = ref.read(secureStorageProvider);
-  return AuthRepository(secureStorage);
+  final useMock = dotenv.env['USE_MOCK_AUTH'] == 'true';
+
+  if (useMock) {
+    return MockAuthRepository(secureStorage);
+  } else {
+    return AuthRepository(secureStorage);
+  }
 });
