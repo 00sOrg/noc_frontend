@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 // import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:sos/features/home/viewmodels/bottom_sheet_viewmodel.dart';
 import 'package:sos/features/home/viewmodels/home_viewmodel.dart';
 // import 'package:sos/features/home/viewmodels/mapController_viewmodel.dart';
@@ -16,10 +18,10 @@ class MapWidget extends ConsumerWidget {
   final String level;
 
   MapWidget({
-    Key? key,
+    super.key,
     required this.currentLocation,
     required this.level,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,6 +34,18 @@ class MapWidget extends ConsumerWidget {
 
     return Stack(
       children: [
+        FlutterMap(
+          options: const MapOptions(
+            initialCenter: LatLng(37.2421, 127.0810),
+            initialZoom: 15.5,
+          ),
+          children: [
+            TileLayer(
+              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              userAgentPackageName: 'com.example.app',
+            ),
+          ],
+        )
         // NaverMap(
         //   options: NaverMapViewOptions(
         //     initialCameraPosition: NCameraPosition(

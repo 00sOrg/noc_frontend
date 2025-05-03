@@ -51,8 +51,8 @@ Future<void> _initialize() async {
   final position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.best);
 
-  log('latitude: ${position.latitude}');
-  log('longitude: ${position.longitude}');
+  debugPrint('latitude: ${position.latitude}');
+  debugPrint('longitude: ${position.longitude}');
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
