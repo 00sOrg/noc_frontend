@@ -22,7 +22,7 @@ class NearbyEvents extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locationState = ref.watch(locationViewModelProvider);
-    final naverMapController = ref.watch(mapControllerProvider);
+    // final naverMapController = ref.watch(mapControllerProvider);
 
     return locationState.when(
       data: (location) {
@@ -84,23 +84,23 @@ class NearbyEvents extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    Positioned(
-                      top: 8,
-                      right: 15,
-                      child: UserLocationBtn(
-                        onTap: () => ref
-                            .read(mapViewModelProvider.notifier)
-                            .onLocationBtnTap(naverMapController!),
-                        icon: Align(
-                          alignment: Alignment(1, 1),
-                          child: Image.asset(
-                            'assets/icons/home/Location1.png',
-                            width: 40,
-                            height: 40,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   top: 8,
+                    //   right: 15,
+                    //   child: UserLocationBtn(
+                    //     onTap: () => ref
+                    //         .read(mapViewModelProvider.notifier)
+                    //         .onLocationBtnTap(naverMapController!),
+                    //     icon: Align(
+                    //       alignment: Alignment(1, 1),
+                    //       child: Image.asset(
+                    //         'assets/icons/home/Location1.png',
+                    //         width: 40,
+                    //         height: 40,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 );
               } else {
@@ -111,13 +111,13 @@ class NearbyEvents extends ConsumerWidget {
                     ref
                         .read(bottomSheetViewModelProvider.notifier)
                         .navigateToPost(context, event.postId),
-                    ref
-                        .read(mapViewModelProvider.notifier)
-                        .updateCameraToCenter(
-                          event.latitude!,
-                          event.longitude!,
-                          naverMapController!,
-                        ),
+                    // ref
+                    //     .read(mapViewModelProvider.notifier)
+                    //     .updateCameraToCenter(
+                    //       event.latitude!,
+                    //       event.longitude!,
+                    //       naverMapController!,
+                    //     ),
                   },
                 );
               }

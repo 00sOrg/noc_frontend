@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
+// import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sos/features/post/repositories/post_repository.dart';
@@ -11,14 +11,14 @@ class BottomSheetState {
   final List<Post> nearbyEvents;
   final double sheetHeight;
   final bool isViewingTappedPost;
-  final NLatLng? nLatLng;
+  // final NLatLng? nLatLng;
 
   BottomSheetState({
     this.tappedPost,
     required this.nearbyEvents,
     required this.sheetHeight,
     this.isViewingTappedPost = false,
-    this.nLatLng, //지도 상 현재 위치 (초기에는 내 현재 위치로 설정)
+    // this.nLatLng, //지도 상 현재 위치 (초기에는 내 현재 위치로 설정)
   });
 
   BottomSheetState copyWith({
@@ -26,14 +26,14 @@ class BottomSheetState {
     List<Post>? nearbyEvents,
     double? sheetHeight,
     bool? isViewingTappedPost,
-    NLatLng? nLatLng,
+    // NLatLng? nLatLng,
   }) {
     return BottomSheetState(
       tappedPost: tappedPost ?? this.tappedPost,
       nearbyEvents: nearbyEvents ?? this.nearbyEvents,
       sheetHeight: sheetHeight ?? this.sheetHeight,
       isViewingTappedPost: isViewingTappedPost ?? this.isViewingTappedPost,
-      nLatLng: nLatLng ?? this.nLatLng,
+      // nLatLng: nLatLng ?? this.nLatLng,
     );
   }
 }
@@ -74,7 +74,7 @@ class BottomSheetViewModel extends StateNotifier<BottomSheetState> {
       state = state.copyWith(nearbyEvents: []);
     }
 
-    updateNLatLng(NLatLng(lat, lng));
+    // updateNLatLng(NLatLng(lat, lng));
   }
 
   toggleBottomSheet() {
@@ -114,9 +114,9 @@ class BottomSheetViewModel extends StateNotifier<BottomSheetState> {
     state = state.copyWith(tappedPost: null, isViewingTappedPost: false);
   }
 
-  void updateNLatLng(NLatLng newNLatLng) {
-    state = state.copyWith(nLatLng: newNLatLng);
-  }
+  // void updateNLatLng(NLatLng newNLatLng) {
+  //   state = state.copyWith(nLatLng: newNLatLng);
+  // }
 }
 
 final bottomSheetViewModelProvider =

@@ -1,16 +1,16 @@
 import 'dart:developer';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
+// import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sos/features/auth/viewmodels/login_viewmodel.dart';
-import 'package:sos/firebase_options.dart';
+// import 'package:sos/firebase_options.dart';
 import 'package:sos/shared/navigation/app_router.dart';
-import 'package:sos/shared/services/push_notification_service.dart';
+// import 'package:sos/shared/services/push_notification_service.dart';
 import 'package:sos/shared/utils/log_util.dart';
 import 'package:sos/shared/viewmodels/location_viewmodel.dart';
 
@@ -22,13 +22,13 @@ Future<void> main() async {
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   final container = ProviderContainer();
-  final pushNotificationService = container.read(pushNotificationProvider);
-  await pushNotificationService.preAppInitialization();
+  // final pushNotificationService = container.read(pushNotificationProvider);
+  // await pushNotificationService.preAppInitialization();
 
   // PushNotificationService pushNotificationService = PushNotificationService();
   // await pushNotificationService.preAppInitialization();
@@ -39,20 +39,20 @@ Future<void> _initialize() async {
     LogUtil.e("Could not load .env file: $e");
   }
 
-  await NaverMapSdk.instance.initialize(
-    clientId: dotenv.env['NAVER_MAP_API_ID']!,
-    onAuthFailed: (ex) {
-      LogUtil.e("네이버맵 인증오류 : $ex");
-    },
-  );
+  // await NaverMapSdk.instance.initialize(
+  //   clientId: dotenv.env['NAVER_MAP_API_ID']!,
+  //   onAuthFailed: (ex) {
+  //     LogUtil.e("네이버맵 인증오류 : $ex");
+  //   },
+  // );
 
   await Geolocator.checkPermission();
   await Geolocator.requestPermission();
   final position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.best);
 
-  log('latitude: ${position.latitude}');
-  log('longitude: ${position.longitude}');
+  debugPrint('latitude: ${position.latitude}');
+  debugPrint('longitude: ${position.longitude}');
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
@@ -63,8 +63,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.microtask(() {
-      final pushNotificationService = ref.read(pushNotificationProvider);
-      pushNotificationService.postAppInitialization(context, ref);
+      // final pushNotificationService = ref.read(pushNotificationProvider);
+      // pushNotificationService.postAppInitialization(context, ref);
     });
     ref.read(loginViewModelProvider.notifier).checkLoginStatus();
     final locationAsyncValue = ref.watch(locationViewModelProvider);

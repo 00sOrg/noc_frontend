@@ -47,7 +47,6 @@ class HomePageState extends ConsumerState<HomePage> {
     final isSwitchLeft =
         ref.watch(homeViewModelProvider.select((state) => state.isSwitchLeft));
 
-    debugPrint('isSwitchLeft: $isSwitchLeft');
     return KeyboardDismisser(
       child: Scaffold(
         body: Stack(

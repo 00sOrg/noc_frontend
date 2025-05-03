@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sos/features/home/viewmodels/mapController_viewmodel.dart';
-import 'package:sos/features/home/viewmodels/map_viewmodel.dart';
+// import 'package:sos/features/home/viewmodels/mapController_viewmodel.dart';
+// import 'package:sos/features/home/viewmodels/map_viewmodel.dart';
 import 'package:sos/shared/styles/global_styles.dart';
 import 'package:sos/shared/viewmodels/friend_viewmodel.dart';
 
@@ -12,7 +12,7 @@ class FavoritesDropdown extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // friendViewModel의 친구 목록을 가져옴
     final friends = ref.watch(friendViewModelProvider);
-    final naverMapController = ref.watch(mapControllerProvider);
+    // final naverMapController = ref.watch(mapControllerProvider);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -40,21 +40,21 @@ class FavoritesDropdown extends ConsumerWidget {
                       ), // 친구의 닉네임을 표시
                     ),
                     onTap: () {
-                      if (naverMapController != null) {
-                        ref
-                            .read(mapViewModelProvider.notifier)
-                            .onFriendMarkerTap(
-                              context,
-                              ref,
-                              naverMapController,
-                              friend,
-                            ); // 친구 마커를 탭했을 때의 동작
-                      } else {
-                        // NaverMapController가 null일 때의 처리
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('지도 컨트롤러가 아직 초기화되지 않았습니다.')));
-                      }
+                      // if (naverMapController != null) {
+                      //   ref
+                      //       .read(mapViewModelProvider.notifier)
+                      //       .onFriendMarkerTap(
+                      //         context,
+                      //         ref,
+                      //         naverMapController,
+                      //         friend,
+                      //       ); // 친구 마커를 탭했을 때의 동작
+                      // } else {
+                      //   // NaverMapController가 null일 때의 처리
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //       const SnackBar(
+                      //           content: Text('지도 컨트롤러가 아직 초기화되지 않았습니다.')));
+                      // }
                     },
                   );
                 },

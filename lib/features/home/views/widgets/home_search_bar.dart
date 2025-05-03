@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sos/features/home/viewmodels/home_viewmodel.dart';
-import 'package:sos/features/home/viewmodels/mapController_viewmodel.dart';
-import 'package:sos/features/home/viewmodels/map_viewmodel.dart';
+// import 'package:sos/features/home/viewmodels/mapController_viewmodel.dart';
+// import 'package:sos/features/home/viewmodels/map_viewmodel.dart';
 import 'package:sos/shared/styles/global_styles.dart';
 
 class HomeSearchBar extends ConsumerWidget {
@@ -12,8 +12,8 @@ class HomeSearchBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchFocusNode = FocusNode();
     final TextEditingController searchController = TextEditingController();
-    final mapViewModel =
-        ref.read(mapViewModelProvider.notifier); // MapViewModel 가져오기
+    // final mapViewModel =
+    //     ref.read(mapViewModelProvider.notifier); // MapViewModel 가져오기
 
     searchFocusNode.addListener(() {
       final isFocused = searchFocusNode.hasFocus;
@@ -23,16 +23,16 @@ class HomeSearchBar extends ConsumerWidget {
     // 검색어로 지도 위치를 변경하는 메소드
     void searchAndMoveMap() {
       if (searchController.text.isNotEmpty) {
-        final mapController = ref.read(mapControllerProvider); // 지도 컨트롤러 가져오기
+        // final mapController = ref.read(mapControllerProvider); // 지도 컨트롤러 가져오기
 
-        if (mapController != null) {
-          mapViewModel.searchAndMoveMap(
-            searchController.text,
-            mapController,
-            ref,
-            context,
-          );
-        }
+        // if (mapController != null) {
+        //   mapViewModel.searchAndMoveMap(
+        //     searchController.text,
+        //     mapController,
+        //     ref,
+        //     context,
+        //   );
+        // }
       }
     }
 
