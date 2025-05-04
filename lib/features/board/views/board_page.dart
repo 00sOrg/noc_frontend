@@ -6,7 +6,6 @@ import 'package:sos/features/board/viewmodels/board_viewmodel.dart';
 import 'package:sos/features/board/views/widgets/board_carousel_widget.dart';
 import 'package:sos/features/board/views/widgets/board_search_bar.dart';
 import 'package:sos/shared/styles/global_styles.dart';
-import 'package:lottie/lottie.dart';
 
 class BoardPage extends ConsumerStatefulWidget {
   const BoardPage({super.key});
@@ -17,7 +16,6 @@ class BoardPage extends ConsumerStatefulWidget {
 
 class _BoardPageState extends ConsumerState<BoardPage> {
   // final ScrollController _scrollController = ScrollController();
-  bool _showDesc = true;
   Timer? _hideDescTimer;
 
   @override
@@ -28,13 +26,7 @@ class _BoardPageState extends ConsumerState<BoardPage> {
       ref.read(boardViewModelProvider.notifier).refreshBoard();
     });
 
-    _hideDescTimer = Timer(const Duration(seconds: 5), () {
-      if (mounted) {
-        setState(() {
-          _showDesc = false;
-        });
-      }
-    });
+    _hideDescTimer = Timer(const Duration(seconds: 5), () {});
   }
 
   @override
@@ -64,43 +56,6 @@ class _BoardPageState extends ConsumerState<BoardPage> {
               const Spacer(),
               const BoardCarouselWidget(),
               //const SizedBox(height: 33),
-              if (_showDesc) ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset(
-                      'assets/lottie/Animation_swipe_left.json',
-                      width: 50,
-                      height: 50,
-                    ),
-                    const SizedBox(width: 20),
-                    Lottie.asset(
-                      'assets/lottie/Animation_swipe_right.json',
-                      width: 50,
-                      height: 50,
-                    ),
-                  ],
-                ),
-                // SvgPicture.asset(
-                //   'assets/icons/side_arrow.svg',
-                //   height: 22,
-                // ),
-
-                const SizedBox(
-                  height: 20,
-                  child: Text(
-                    '좌우로 스와이프해서 사건 사고를 확인해보세요!',
-                    style: TextStyle(
-                      color: AppColors.textGray,
-                      fontSize: 14,
-                      height: 1.2,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
-              ] else ...[
-                const SizedBox(height: 81),
-              ]
             ],
           ),
         ),
