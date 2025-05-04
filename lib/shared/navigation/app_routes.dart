@@ -1,9 +1,7 @@
 enum AppRoutes {
   home,
-  rescue,
   write,
   board,
-  profile,
 }
 
 extension AppRoutesExtension on AppRoutes {
@@ -11,14 +9,10 @@ extension AppRoutesExtension on AppRoutes {
     switch (this) {
       case AppRoutes.home:
         return '/home';
-      case AppRoutes.rescue:
-        return '/rescue';
       case AppRoutes.write:
         return '/write';
       case AppRoutes.board:
         return '/board';
-      case AppRoutes.profile:
-        return '/setting';
       default:
         return '/';
     }
@@ -28,14 +22,10 @@ extension AppRoutesExtension on AppRoutes {
     switch (path) {
       case '/home':
         return AppRoutes.home;
-      case '/rescue':
-        return AppRoutes.rescue;
       case '/write':
         return AppRoutes.write;
       case '/board':
         return AppRoutes.board;
-      case '/setting':
-        return AppRoutes.profile;
       default:
         return AppRoutes.home;
     }
