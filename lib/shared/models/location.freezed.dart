@@ -22,11 +22,13 @@ Location _$LocationFromJson(Map<String, dynamic> json) {
 mixin _$Location {
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
-  String get adminAddress => throw _privateConstructorUsedError;
-  String get roadAddress => throw _privateConstructorUsedError;
 
+  /// Serializes this Location to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocationCopyWith<Location> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -36,11 +38,7 @@ abstract class $LocationCopyWith<$Res> {
   factory $LocationCopyWith(Location value, $Res Function(Location) then) =
       _$LocationCopyWithImpl<$Res, Location>;
   @useResult
-  $Res call(
-      {double latitude,
-      double longitude,
-      String adminAddress,
-      String roadAddress});
+  $Res call({double latitude, double longitude});
 }
 
 /// @nodoc
@@ -53,13 +51,13 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? latitude = null,
     Object? longitude = null,
-    Object? adminAddress = null,
-    Object? roadAddress = null,
   }) {
     return _then(_value.copyWith(
       latitude: null == latitude
@@ -70,14 +68,6 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      adminAddress: null == adminAddress
-          ? _value.adminAddress
-          : adminAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      roadAddress: null == roadAddress
-          ? _value.roadAddress
-          : roadAddress // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -90,11 +80,7 @@ abstract class _$$LocationImplCopyWith<$Res>
       __$$LocationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {double latitude,
-      double longitude,
-      String adminAddress,
-      String roadAddress});
+  $Res call({double latitude, double longitude});
 }
 
 /// @nodoc
@@ -105,13 +91,13 @@ class __$$LocationImplCopyWithImpl<$Res>
       _$LocationImpl _value, $Res Function(_$LocationImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? latitude = null,
     Object? longitude = null,
-    Object? adminAddress = null,
-    Object? roadAddress = null,
   }) {
     return _then(_$LocationImpl(
       latitude: null == latitude
@@ -122,14 +108,6 @@ class __$$LocationImplCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      adminAddress: null == adminAddress
-          ? _value.adminAddress
-          : adminAddress // ignore: cast_nullable_to_non_nullable
-              as String,
-      roadAddress: null == roadAddress
-          ? _value.roadAddress
-          : roadAddress // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -137,11 +115,7 @@ class __$$LocationImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LocationImpl implements _Location {
-  _$LocationImpl(
-      {required this.latitude,
-      required this.longitude,
-      required this.adminAddress,
-      required this.roadAddress});
+  _$LocationImpl({required this.latitude, required this.longitude});
 
   factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationImplFromJson(json);
@@ -150,14 +124,10 @@ class _$LocationImpl implements _Location {
   final double latitude;
   @override
   final double longitude;
-  @override
-  final String adminAddress;
-  @override
-  final String roadAddress;
 
   @override
   String toString() {
-    return 'Location(latitude: $latitude, longitude: $longitude, adminAddress: $adminAddress, roadAddress: $roadAddress)';
+    return 'Location(latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -168,19 +138,16 @@ class _$LocationImpl implements _Location {
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
-            (identical(other.adminAddress, adminAddress) ||
-                other.adminAddress == adminAddress) &&
-            (identical(other.roadAddress, roadAddress) ||
-                other.roadAddress == roadAddress));
+                other.longitude == longitude));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, latitude, longitude, adminAddress, roadAddress);
+  int get hashCode => Object.hash(runtimeType, latitude, longitude);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
@@ -197,9 +164,7 @@ class _$LocationImpl implements _Location {
 abstract class _Location implements Location {
   factory _Location(
       {required final double latitude,
-      required final double longitude,
-      required final String adminAddress,
-      required final String roadAddress}) = _$LocationImpl;
+      required final double longitude}) = _$LocationImpl;
 
   factory _Location.fromJson(Map<String, dynamic> json) =
       _$LocationImpl.fromJson;
@@ -208,12 +173,11 @@ abstract class _Location implements Location {
   double get latitude;
   @override
   double get longitude;
+
+  /// Create a copy of Location
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String get adminAddress;
-  @override
-  String get roadAddress;
-  @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
