@@ -35,28 +35,6 @@ class UserRepository {
     return user;
   }
 
-  Future<bool> postUserLocation(double latitude, double longitude) async {
-    try {
-      final url = Uri.parse(
-          '$baseUrl/members/location/update?lat=$latitude&lng=$longitude');
-
-      final accessToken = await secureStorage.read(key: 'access_token');
-
-      final response = await makePostRequest(url, null, "postUserLocation",
-          accessToken: accessToken);
-
-      if (response.statusCode != 200) {
-        return false;
-      }
-
-      return true;
-    } catch (e) {
-      // Handle the error appropriately here
-      LogUtil.e('Error posting user location: $e');
-      return false;
-    }
-  }
-
   Future<User> getUserById(int id) async {
     final url = Uri.parse('$baseUrl/members/$id');
 
