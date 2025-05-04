@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sos/features/auth/repositories/auth_repository.dart';
 import 'package:sos/shared/utils/log_util.dart';
-import 'package:sos/shared/widgets/custom_snack_bar.dart';
 
 class LoginState {
   final bool isLoggedIn;
@@ -19,10 +18,12 @@ class LoginState {
   LoginState copyWith({
     bool? isLoggedIn,
     bool? isLoading,
+    String? errorMessage,
   }) {
     return LoginState(
       isLoggedIn: isLoggedIn ?? this.isLoggedIn,
       isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
@@ -30,72 +31,54 @@ class LoginState {
     return LoginState(
       isLoggedIn: false,
       isLoading: false,
+      errorMessage: null,
     );
   }
 }
 
 class LoginViewModel extends StateNotifier<LoginState> {
-  final AuthRepository authRepository;
+  final AuthRepository _authRepository;
 
-  LoginViewModel(this.authRepository) : super(LoginState.initial()) {
+  LoginViewModel(this._authRepository) : super(LoginState.initial()) {
     checkLoginStatus();
   }
 
-  Future<void> checkLoginStatus() async {
-    try {
-      String? token = await authRepository.getAccessToken();
-      if (token != null) {
-        state = state.copyWith(isLoggedIn: true);
-        debugPrint('로그인 되어있는 유저임');
-      }
-    } catch (e) {
-      LogUtil.e('checkLoginStatus 에러: $e');
-    }
-  }
-
-  Future<void> handleLogin(
-      BuildContext context, String email, String password) async {
+  /// Google 로그인
+  Future<void> handleGoogleLogin(BuildContext context) async {
     state = state.copyWith(isLoading: true);
-
     try {
-      bool success = await authRepository.loginUser(email, password);
-
+      final success = await _authRepository.googleLogin();
       if (success) {
         state = state.copyWith(isLoggedIn: true, isLoading: false);
-        debugPrint('로그인 성공');
         GoRouter.of(context).go('/home');
       } else {
         state = state.copyWith(isLoading: false);
-        debugPrint('로그인 실패');
-        ScaffoldMessenger.of(context).showSnackBar(
-          customSnackBar(text: '로그인에 실패했습니다'),
-        );
       }
     } catch (e) {
       state = state.copyWith(isLoading: false);
-      LogUtil.e('handleLogin 에러: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        customSnackBar(text: '로그인 중 문제가 발생했습니다'),
-      );
+      LogUtil.e('handleGoogleLogin 에러: $e');
     }
   }
 
+  /// 현재 로그인 상태 확인
+  Future<void> checkLoginStatus() async {
+    final token = await _authRepository.getAccessToken();
+    if (token != null) {
+      state = state.copyWith(isLoggedIn: true);
+      debugPrint('JWT 존재: 로그인 상태');
+    }
+  }
+
+  /// 로그아웃
   Future<void> handleLogout(BuildContext context) async {
-    try {
-      await authRepository.logoutUser();
-      state = state.copyWith(isLoggedIn: false);
-      GoRouter.of(context).go('/login');
-    } catch (e) {
-      LogUtil.e('handleLogout 에러: $e');
-    }
-  }
-
-  void goToSignupPage(BuildContext context) {
-    GoRouter.of(context).push('/signup');
+    await _authRepository.googleLogout();
+    state = state.copyWith(isLoggedIn: false);
+    GoRouter.of(context).go('/login');
   }
 }
 
 final loginViewModelProvider =
-    StateNotifierProvider<LoginViewModel, LoginState>(
-  (ref) => LoginViewModel(ref.read(authRepositoryProvider)),
-);
+    StateNotifierProvider<LoginViewModel, LoginState>((ref) {
+  final authRepository = ref.watch(authRepositoryProvider);
+  return LoginViewModel(authRepository);
+});
