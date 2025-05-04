@@ -3,34 +3,24 @@ import 'package:flutter_map/flutter_map.dart';
 // import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:sos/features/home/viewmodels/bottom_sheet_viewmodel.dart';
-import 'package:sos/features/home/viewmodels/home_viewmodel.dart';
 // import 'package:sos/features/home/viewmodels/mapController_viewmodel.dart';
 // import 'package:sos/features/home/viewmodels/map_viewmodel.dart';
 // import 'package:sos/features/home/views/widgets/custom_marker.dart';
 // import 'package:sos/features/home/views/widgets/friend_marker.dart';
 import 'package:sos/shared/models/location.dart';
 // import 'package:sos/shared/styles/global_styles.dart';
-import 'package:sos/shared/viewmodels/friend_viewmodel.dart';
 
 class MapWidget extends ConsumerWidget {
   final Location currentLocation;
-  final String level;
 
   MapWidget({
     super.key,
     required this.currentLocation,
-    required this.level,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSearchFocused = ref
-        .watch(homeViewModelProvider.select((state) => state.isSearchFocused));
     // final mapViewModel = ref.read(mapViewModelProvider.notifier);
-    final bottomSheetViewModel =
-        ref.read(bottomSheetViewModelProvider.notifier);
-    final friendViewModel = ref.read(friendViewModelProvider.notifier);
 
     return Stack(
       children: [
@@ -43,6 +33,23 @@ class MapWidget extends ConsumerWidget {
             TileLayer(
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               userAgentPackageName: 'com.example.app',
+            ),
+            MarkerLayer(
+              markers: [
+                Marker(
+                  point: LatLng(
+                    37.2421,
+                    127.0810,
+                  ),
+                  width: 40,
+                  height: 40,
+                  child: const Icon(
+                    Icons.person_pin_circle,
+                    color: Colors.blue,
+                    size: 40,
+                  ),
+                ),
+              ],
             ),
           ],
         )
