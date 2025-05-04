@@ -16,7 +16,6 @@ class WriteRepository {
     String? content,
     required double latitude,
     required double longitude,
-    required String address,
     required PostType type,
     String? mediaFilePath,
   }) async {
@@ -26,7 +25,6 @@ class WriteRepository {
       'content': content ?? '',
       'latitude': latitude.toString(),
       'longitude': longitude.toString(),
-      'address': address,
       'type': type.name,
     };
 

@@ -155,17 +155,6 @@ class _WritePageState extends ConsumerState<WritePage> {
                   color: AppColors.lineGray,
                 ),
               ),
-              location.when(
-                data: (location) => Text(
-                  location.roadAddress,
-                  style: const TextStyle(fontSize: 14, height: 1.2),
-                ),
-                loading: () => const Text(
-                  '주소를 가져오고 있어요',
-                  style: TextStyle(fontSize: 14, height: 1.2),
-                ),
-                error: (error, stack) => Text('주소 오류: $error'),
-              ),
             ],
           ),
         ),

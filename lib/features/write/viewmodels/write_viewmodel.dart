@@ -64,7 +64,6 @@ class WriteViewModel extends StateNotifier<Post> {
         content: content ?? '',
         latitude: location.latitude,
         longitude: location.longitude,
-        address: location.roadAddress,
         type: type,
         mediaFilePath: state.mediaURL,
       );
