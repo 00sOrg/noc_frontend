@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:sos/shared/models/user.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:sos/shared/repositories/user_repository.dart';
@@ -52,13 +51,6 @@ class UserViewModel extends StateNotifier<User> {
       phoneNumber: user.phoneNumber,
       birthDate: user.birthDate,
     );
-  }
-
-  Future<void> updateUserLocation() async {
-    final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    await userRepository.postUserLocation(
-        position.latitude, position.longitude);
   }
 
   Future<void> printDecodedToken() async {
