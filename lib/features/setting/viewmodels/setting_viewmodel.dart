@@ -34,18 +34,6 @@ class SettingViewModel extends StateNotifier<SettingState> {
     GoRouter.of(context).push('/setting-my-post');
   }
 
-  void goToEditProfile(BuildContext context) {
-    GoRouter.of(context).push('/setting-profile');
-  }
-
-  void goToHealthInfo(BuildContext context) {
-    GoRouter.of(context).push('/setting-health');
-  }
-
-  void goToFavorites(BuildContext context) {
-    GoRouter.of(context).push('/setting-favorite');
-  }
-
   void showLogoutModal(BuildContext context, WidgetRef ref) {
     showCupertinoModalPopup(
       context: context,
