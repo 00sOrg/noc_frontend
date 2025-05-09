@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:sos/features/home/viewmodels/home_viewmodel.dart';
 import 'package:sos/features/home/views/widgets/header_btn.dart';
 import 'package:sos/features/home/views/widgets/map_area.dart';
 import 'package:sos/shared/viewmodels/location_viewmodel.dart';
@@ -63,7 +64,7 @@ class HomePageState extends ConsumerState<HomePage> {
   Positioned _homeTopArea(BuildContext context, WidgetRef ref) {
     return Positioned(
       top: 60,
-      left: 15, // 좌우 패딩 설정
+      left: 15,
       right: 15,
       child: Column(
         children: [
@@ -71,25 +72,23 @@ class HomePageState extends ConsumerState<HomePage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   HeaderBtn(
-                    onTap: () => GoRouter.of(context).go('/login'),
+                    onTap: () async {
+                      final isLoggedIn = await ref
+                          .read(homeViewModelProvider.notifier)
+                          .checkLoginStatus();
+                      if (isLoggedIn) {
+                        context.go('/setting');
+                      } else {
+                        context.go('/login');
+                      }
+                    },
                     icon: Image.asset(
                       'assets/icons/home/favorites.png',
-                      width: 36,
-                      height: 36,
-                    ),
-                  ),
-                  HeaderBtn(
-                    onTap: () => GoRouter.of(context).go('/setting'),
-                    icon: Align(
-                      alignment: const Alignment(0, 0.5),
-                      child: Icon(
-                        Icons.settings,
-                        size: 36,
-                        color: Colors.blue,
-                      ),
+                      width: 40,
+                      height: 40,
                     ),
                   ),
                 ],
