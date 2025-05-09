@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sos/features/auth/views/login_page.dart';
+import 'package:sos/features/auth/views/redirect_handler_page.dart';
 // import 'package:sos/features/auth/views/splash_page.dart';
 import 'package:sos/features/board/views/board_page.dart';
 import 'package:sos/features/home/views/home_page.dart';
@@ -19,7 +20,7 @@ import 'package:sos/shared/widgets/custom_nav_bar.dart';
 import 'package:sos/features/post/views/post_page.dart';
 
 class AppRouter {
-  final Ref ref;
+  final WidgetRef ref;
 
   AppRouter(this.ref);
 
@@ -30,6 +31,10 @@ class AppRouter {
         GoRoute(
           path: '/login',
           builder: (context, state) => const LoginPage(),
+        ),
+        GoRoute(
+          path: '/oauth2/redirect',
+          builder: (context, state) => const RedirectHandlerPage(),
         ),
         GoRoute(
           path: '/setting-deleted-account',
