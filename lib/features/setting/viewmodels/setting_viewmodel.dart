@@ -35,6 +35,7 @@ class SettingViewModel extends StateNotifier<SettingState> {
   }
 
   void showLogoutModal(BuildContext context, WidgetRef ref) {
+    final loginViewmodel = ref.read(loginViewModelProvider.notifier);
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext modalContext) {
@@ -45,17 +46,11 @@ class SettingViewModel extends StateNotifier<SettingState> {
           rightBtn: '로그아웃',
           onRightBtnPressed: () {
             Navigator.of(modalContext).pop();
-            logout(context, ref);
+            loginViewmodel.handleLogout(context);
           },
         );
       },
     );
-  }
-
-  void logout(BuildContext context, WidgetRef ref) {
-    final loginViewmodel = ref.read(loginViewModelProvider.notifier);
-    loginViewmodel.handleLogout(context);
-    GoRouter.of(context).go('/login');
   }
 
   void showDeleteAccountModal(BuildContext context) {
