@@ -8,9 +8,8 @@ class Location with _$Location {
   factory Location({
     required double latitude,
     required double longitude,
-    required String adminAddress,
-    required String roadAddress,
   }) = _Location;
 
-  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
 }

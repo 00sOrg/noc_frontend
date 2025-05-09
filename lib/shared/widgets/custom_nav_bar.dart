@@ -6,14 +6,10 @@ import 'package:sos/shared/utils/check_real_device.dart';
 
 class CustomNavBar extends StatelessWidget {
   final int selectedIdx;
-  final VoidCallback onHomePressed;
-  final VoidCallback onOtherPressed;
 
   const CustomNavBar({
     super.key,
     required this.selectedIdx,
-    required this.onHomePressed,
-    required this.onOtherPressed,
   });
 
   void _openWritePage(BuildContext context) {
@@ -26,10 +22,6 @@ class CustomNavBar extends StatelessWidget {
 
   void _onItemTap(BuildContext context, int idx) {
     final route = AppRoutes.values[idx];
-
-    if (idx == 0) {
-      onHomePressed(); // 홈 버튼을 눌렀을 때 바텀시트를 열고 닫는 동작
-    }
     GoRouter.of(context).go(route.path);
   }
 
@@ -81,10 +73,10 @@ class CustomNavBar extends StatelessWidget {
           ),
           Positioned(
             // bottom: 70,
-            bottom: 50,
+            bottom: 30,
             child: GestureDetector(
               onTap: () async {
-                //  _onItemTap(context, 2);
+                _onItemTap(context, 1);
                 bool isRealDevice = await checkRealDevice();
                 if (isRealDevice) {
                   _openCustomCamera(context);
@@ -140,52 +132,25 @@ class CustomNavBar extends StatelessWidget {
             height: size,
           ),
         ),
-        label: '홈화면',
-      ),
-      NavigationDestination(
-        icon: Transform.scale(
-          scale: 1.2,
-          child: Image.asset(
-            selectedIdx == 1
-                ? 'assets/icons/home/Warning1.png'
-                : 'assets/icons/home/Warning2.png',
-            width: size,
-            height: size,
-          ),
-        ),
-        label: '구조요청',
+        label: '지도',
       ),
       const NavigationDestination(
         enabled: false,
         icon: SizedBox(width: 36, height: 36),
-        // label: '사건/사고 추가',
-        label: '',
+        label: '게시글 추가',
       ),
       NavigationDestination(
         icon: Transform.scale(
           scale: 1.1,
           child: Image.asset(
-            selectedIdx == 3
+            selectedIdx == 2
                 ? 'assets/icons/home/Category1.png'
                 : 'assets/icons/home/Category2.png',
             width: size,
             height: size,
           ),
         ),
-        label: '사건/사고 목록',
-      ),
-      NavigationDestination(
-        icon: Transform.scale(
-          scale: 1.2,
-          child: Image.asset(
-            selectedIdx == 4
-                ? 'assets/icons/home/Setting1.png'
-                : 'assets/icons/home/Setting2.png',
-            width: size,
-            height: size,
-          ),
-        ),
-        label: '내 정보',
+        label: '게시판',
       ),
     ];
   }

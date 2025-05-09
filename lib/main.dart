@@ -1,18 +1,17 @@
-import 'dart:developer';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-// import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sos/features/auth/viewmodels/login_viewmodel.dart';
-// import 'package:sos/firebase_options.dart';
 import 'package:sos/shared/navigation/app_router.dart';
 // import 'package:sos/shared/services/push_notification_service.dart';
 import 'package:sos/shared/utils/log_util.dart';
 import 'package:sos/shared/viewmodels/location_viewmodel.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   await _initialize();
@@ -21,30 +20,27 @@ Future<void> main() async {
 
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  setPathUrlStrategy();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
 
-  final container = ProviderContainer();
+  // final container = ProviderContainer();
   // final pushNotificationService = container.read(pushNotificationProvider);
   // await pushNotificationService.preAppInitialization();
 
   // PushNotificationService pushNotificationService = PushNotificationService();
   // await pushNotificationService.preAppInitialization();
 
+  //main.dart에서 로그인 상태 체크 완료 후 앱 실행
+  // final loginVM = container.read(loginViewModelProvider.notifier);
+  // await loginVM.checkLoginStatus();
+
   try {
     await dotenv.load(fileName: '.env');
   } catch (e) {
     LogUtil.e("Could not load .env file: $e");
   }
-
-  // await NaverMapSdk.instance.initialize(
-  //   clientId: dotenv.env['NAVER_MAP_API_ID']!,
-  //   onAuthFailed: (ex) {
-  //     LogUtil.e("네이버맵 인증오류 : $ex");
-  //   },
-  // );
 
   await Geolocator.checkPermission();
   await Geolocator.requestPermission();
@@ -69,18 +65,21 @@ class MyApp extends ConsumerWidget {
     ref.read(loginViewModelProvider.notifier).checkLoginStatus();
     final locationAsyncValue = ref.watch(locationViewModelProvider);
 
+    final appRouterProvider = Provider<GoRouter>((ref) {
+      return AppRouter(ref).router();
+    });
+
     return ScreenUtilInit(
         designSize: const Size(393, 852),
         builder: (context, child) {
           return MaterialApp(
-            title: 'SOS',
+            title: 'Noc',
             debugShowCheckedModeBanner: false,
             home: locationAsyncValue.when(
               data: (location) {
-                final appRouter = AppRouter(ref);
                 return MaterialApp.router(
-                  title: 'SOS',
-                  routerConfig: appRouter.router(location.adminAddress),
+                  title: 'Noc',
+                  routerConfig: ref.watch(appRouterProvider),
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(
                     fontFamily: 'AppleSD',

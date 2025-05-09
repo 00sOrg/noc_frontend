@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sos/features/post/repositories/post_repository.dart';
 import 'package:sos/shared/models/post.dart';
 import 'package:sos/shared/utils/log_util.dart';

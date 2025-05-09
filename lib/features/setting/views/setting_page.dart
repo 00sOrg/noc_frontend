@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sos/features/setting/viewmodels/setting_viewmodel.dart';
-import 'package:sos/features/setting/views/widgets/user_profile_field.dart';
 import 'package:sos/shared/styles/global_styles.dart';
 import 'package:sos/shared/viewmodels/user_viewmodel.dart';
 import 'package:sos/shared/widgets/custom_app_bar.dart';
@@ -25,13 +24,6 @@ class SettingPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          // UserProfileField에 패딩 적용
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            child: UserProfileField(
-              onPressed: () => settingViewModel.goToEditProfile(context),
-            ),
-          ),
           // Divider 추가
           const Divider(
             color: AppColors.finalGray,
@@ -54,16 +46,6 @@ class SettingPage extends ConsumerWidget {
                   settingTile(
                     title: '내 게시글',
                     onTap: () => settingViewModel.goToMyPosts(context),
-                  ),
-                  const SizedBox(height: 10), // 간격 추가
-                  settingTile(
-                    title: '건강 정보 등록 및 수정',
-                    onTap: () => settingViewModel.goToHealthInfo(context),
-                  ),
-                  const SizedBox(height: 10), // 간격 추가
-                  settingTile(
-                    title: '즐겨찾는 지인 관리',
-                    onTap: () => settingViewModel.goToFavorites(context),
                   ),
                   const SizedBox(height: 10), // 간격 추가
                   settingTile(

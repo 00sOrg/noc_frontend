@@ -44,8 +44,12 @@ mixin _$User {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -86,6 +90,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -226,6 +232,8 @@ class __$$UserImplCopyWithImpl<$Res>
   __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -443,7 +451,7 @@ class _$UserImpl implements _User {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -468,7 +476,9 @@ class _$UserImpl implements _User {
         updatedAt
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
@@ -506,13 +516,14 @@ abstract class _User implements User {
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
-  @override //member info
+//member info
+  @override
   int? get memberId;
   @override
   String? get email;
   @override
-  String? get password;
-  @override //Todo: 비밀번호는 필요한가?
+  String? get password; //Todo: 비밀번호는 필요한가?
+  @override
   String? get name;
   @override
   String? get nickname;
@@ -521,9 +532,9 @@ abstract class _User implements User {
   @override
   double? get latitude;
   @override
-  double? get longitude;
-  @override // String? device,
+  double? get longitude; // String? device,
 //member detail info
+  @override
   String? get sex;
   @override
   DateTime? get birthDate;
@@ -545,8 +556,11 @@ abstract class _User implements User {
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
+
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
