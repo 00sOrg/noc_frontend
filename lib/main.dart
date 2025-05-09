@@ -15,12 +15,17 @@ import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   await _initialize();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
+
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
@@ -65,37 +70,22 @@ class MyApp extends ConsumerWidget {
     ref.read(loginViewModelProvider.notifier).checkLoginStatus();
     final locationAsyncValue = ref.watch(locationViewModelProvider);
 
-    final appRouterProvider = Provider<GoRouter>((ref) {
-      return AppRouter(ref).router();
-    });
+    final appRouter = AppRouter(ref);
 
     return ScreenUtilInit(
-        designSize: const Size(393, 852),
-        builder: (context, child) {
-          return MaterialApp(
-            title: 'Noc',
-            debugShowCheckedModeBanner: false,
-            home: locationAsyncValue.when(
-              data: (location) {
-                return MaterialApp.router(
-                  title: 'Noc',
-                  routerConfig: ref.watch(appRouterProvider),
-                  debugShowCheckedModeBanner: false,
-                  theme: ThemeData(
-                    fontFamily: 'AppleSD',
-                    scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-                  ),
-                );
-              },
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stack) => Center(
-                child: Text('Error: $error'),
-              ),
-            ),
-            theme: ThemeData(
-              fontFamily: 'AppleSD',
-            ),
-          );
-        });
+      designSize: const Size(390, 844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp.router(
+          title: 'Noc',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          routerConfig: appRouter.router(),
+        );
+      },
+    );
   }
 }
