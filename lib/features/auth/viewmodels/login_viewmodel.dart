@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sos/features/auth/repositories/auth_repository.dart';
-import 'package:sos/shared/utils/log_util.dart';
 
 class LoginState {
   final bool isLoggedIn;
@@ -43,37 +42,36 @@ class LoginViewModel extends StateNotifier<LoginState> {
     checkLoginStatus();
   }
 
-  /// Google 로그인
-  Future<void> handleGoogleLogin(BuildContext context) async {
-    state = state.copyWith(isLoading: true);
-    try {
-      final success = await _authRepository.googleLogin();
-      if (success) {
-        state = state.copyWith(isLoggedIn: true, isLoading: false);
-        GoRouter.of(context).go('/home');
-      } else {
-        state = state.copyWith(isLoading: false);
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false);
-      LogUtil.e('handleGoogleLogin 에러: $e');
-    }
-  }
+  /// 로그인 URL 노출 (UI에서 사용)
+  String get loginUrl => _authRepository.loginUrl;
 
-  /// 현재 로그인 상태 확인
+  /// 로그인 상태 확인
   Future<void> checkLoginStatus() async {
     final token = await _authRepository.getAccessToken();
     if (token != null) {
       state = state.copyWith(isLoggedIn: true);
-      debugPrint('JWT 존재: 로그인 상태');
+      debugPrint('✅ 로그인 상태 유지됨 (JWT 존재)');
     }
   }
 
-  /// 로그아웃
+  /// 로그아웃 처리
   Future<void> handleLogout(BuildContext context) async {
-    await _authRepository.googleLogout();
+    await _authRepository.logout();
     state = state.copyWith(isLoggedIn: false);
     GoRouter.of(context).go('/login');
+  }
+
+  Future<void> storeTokens(String accessToken, String refreshToken) async {
+    await _authRepository.storeTokens(accessToken, refreshToken);
+    state = state.copyWith(isLoggedIn: true);
+  }
+
+  Future<String?> getAccessToken() async {
+    return await _authRepository.getAccessToken();
+  }
+
+  Future<String?> getRefreshToken() async {
+    return await _authRepository.getRefreshToken();
   }
 }
 
